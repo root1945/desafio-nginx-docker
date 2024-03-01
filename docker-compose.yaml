@@ -24,6 +24,8 @@ services:
       - db
     networks:
       - default-network
+    volumes:
+      - ./node:/usr/src/app
 
   db:
     image: mysql:5.7
