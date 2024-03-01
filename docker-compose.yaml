@@ -24,19 +24,22 @@ services:
       - default-network
 
   db:
-    build: 
-      context: ./mysql
+    image: mysql:5.7
+    command: --innodb_use_native_aio=0
     container_name: db
     restart: always
     tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: nodedb
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'root'      
+      MYSQL_ROOT_PASSWORD: 'root'
+    expose:
+      - '3306'
     networks:
       - default-network
-    volumes:
-      - ./mysql/volume:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=nodedb
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=root
 
 networks:
   default-network:
